@@ -1,5 +1,6 @@
 *.class
 *.log
+.gradle
 
 # sbt specific
 .cache
@@ -7,6 +8,7 @@
 .lib/
 dist/*
 target/
+build/
 lib_managed/
 src_managed/
 project/boot/
