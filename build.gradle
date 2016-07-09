@@ -1,0 +1,59 @@
+
+plugins {
+    id 'com.github.johnrengelman.shadow' version '1.2.2'
+}
+
+
+
+apply plugin: 'scala'
+apply plugin: "com.github.johnrengelman.shadow"
+
+
+repositories {
+    maven {
+      url 'https://repo.gradle.org/gradle/libs-releases-local'
+    }
+
+   maven {
+    url "https://plugins.gradle.org/m2/"
+  }
+
+    maven {
+      url 'http://dl.bintray.com/megamsys/scala'
+    }
+
+    maven {
+      url 'https://dl.bintray.com/spark-jobserver/maven'
+    }
+
+    mavenCentral()
+}
+
+dependencies {
+  compile 'org.scala-lang:scala-library:2.11.7'
+}
+
+def toolingApiVersion = gradle.gradleVersion
+
+dependencies {
+    compile 'io.megam:libcommon_2.11:0.20'
+    compile 'org.scalaz:scalaz-core_2.11:7.1.5'
+    compile 'spark.jobserver:job-server-api_2.11:0.6.0'
+    compile 'org.apache.spark:spark-core_2.11:1.5.1'
+    compile 'org.apache.spark:spark-sql_2.11:1.5.1'
+    compile 'org.apache.spark:spark-catalyst_2.11:1.5.1'
+    runtime 'org.slf4j:slf4j-simple:1.7.10'
+    compile 'mysql:mysql-connector-java:5.1.34'
+
+}
+
+shadowJar {
+  zip64 true
+  dependencies {
+   include(dependency('org.apache.spark:spark-sql_2.11:1.5.1'))
+   include(dependency('org.apache.spark:spark-catalyst_2.11:1.5.1'))
+   include(dependency('mysql:mysql-connector-java:5.1.34'))
+   include(dependency('org.scalaz:scalaz-core_2.11:7.1.5'))
+
+ }
+}
